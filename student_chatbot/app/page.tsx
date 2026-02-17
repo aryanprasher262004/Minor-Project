@@ -3,13 +3,12 @@ export default function Home() {
     <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-black">
    
       <div
-        className="relative flex min-h-[860px] w-full max-w-8xl flex-col items-center justify-center rounded-xl bg-cover bg-c  bg-no-repeat shadow-2xl"
+        className="relative flex min-h-[845px] w-full max-w-8xl flex-col items-center justify-center rounded-xl bg-cover bg-c  bg-no-repeat shadow-2xl"
         style={{ backgroundImage: "url('/bot.jpg')" }}
       >
         
         <div className="absolute inset-0 bg-black/55 rounded-xl"></div>
 
-        {/* Content */}
         <div className="relative z-10 flex flex-col items-center  gap-6 text-center px-6">
           
           <h1 className="text-5xl  font-bold text-white">
@@ -39,3 +38,5 @@ export default function Home() {
     </div>
   );
 }
+
+//test changes
