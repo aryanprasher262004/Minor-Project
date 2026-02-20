@@ -31,6 +31,20 @@ export default function Home() {
             <button className="rounded-full border border-white px-6 py-3 font-semibold text-white transition hover:bg-white hover:text-black">
               Learn More
             </button>
+           
+          </div>
+
+          <div className="max-w-lg flex flex-col  font-bold text-gray-200  " >
+            TASK FOR THIS WEEK :
+
+            <p className="w-full text-gray-200 font-semibold text-xs"> * Make a branc of your name  </p>
+            <p className="w-full text-gray-200 font-semibold text-xs"> * Add some comment in the /apps/page.tsx  </p>
+            <p className="w-full text-gray-200 font-semibold text-xs"> * When the file is modified commit it to your made branch git commit -m "test"  </p>
+            <p className="w-full text-gray-200 font-semibold text-xs"> * Now push the commited file to your made branch  "git push origin branchname" </p>
+            <p className="w-full text-gray-200 font-semibold text-xs"> * If possible send me a PR request to merge the commmited changes to the main branch   </p>
+
+
+            
           </div>
 
         </div>
@@ -38,5 +52,6 @@ export default function Home() {
     </div>
   );
 }
+
 
 //test changes
