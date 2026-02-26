@@ -12,7 +12,7 @@ export default function Home() {
         <div className="relative z-10 flex flex-col items-center  gap-6 text-center px-6">
           
           <h1 className="text-5xl  font-bold text-white">
-             Student Help Chatbot
+             Student Help Chatbot . 
           </h1>
 
           <p className="max-w-md text-lg font-bold text-gray-200">
@@ -54,4 +54,9 @@ export default function Home() {
   );
 }
 
+
+
+//test changes
+// test Branch
+// aditya
 // aditya 
