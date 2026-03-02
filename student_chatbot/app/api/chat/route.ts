@@ -3,6 +3,7 @@
 import { NextResponse } from "next/server";
 import { ChatRequest, ChatResponse } from "@/types/chat";
 import { handleChat } from "@/features/chat/chat.controller";
+
 // Temporary mock response (we connect real logic next)
 export async function POST(req: Request) {
   try {
