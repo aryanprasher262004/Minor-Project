@@ -2,6 +2,7 @@
 
 import { NextResponse } from "next/server";
 import { ChatRequest, ChatResponse } from "@/types/chat";
+import { handleChat } from "@/features/chat/chat.controller";
 
 // Temporary mock response (we connect real logic next)
 export async function POST(req: Request) {
@@ -16,11 +17,7 @@ export async function POST(req: Request) {
     }
 
     // TEMP response (Step 1 validation)
-    const response: ChatResponse = {
-      reply: `You said: ${body.message}`,
-      intent: "mock_intent",
-      confidence: 1.0,
-    };
+    const response = await handleChat(body);
 
     return NextResponse.json(response);
   } catch (error) {
