@@ -1,14 +1,15 @@
-  
-import { ChatRequest,ChatResponse} from "@/types/chat";
+import { ChatRequest, ChatResponse } from "@/types/chat";
+import { detectIntent } from "@/nlp/wit.client";
 
- export async function processChat(
-    data: ChatRequest):
-     Promise<ChatResponse> {
-        // this is temporary 
-        const reply = ` Your service is processed ${data.message} `;
-    return {
-        reply,
-        intent: "mock_intent",
-        confidence: 1,
-    };
- }
+export async function processChat(
+  data: ChatRequest
+): Promise<ChatResponse> {
+
+  const nlpResult = await detectIntent(data.message);
+
+  return {
+    reply: `Detected intent: ${nlpResult.intent}`,
+    intent: nlpResult.intent,
+    confidence: nlpResult.confidence,
+  };
+}
