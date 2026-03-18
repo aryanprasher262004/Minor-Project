@@ -15,8 +15,7 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
-
-    // TEMP response (Step 1 validation)
+      // added from chat.controller.ts
     const response = await handleChat(body);
 
     return NextResponse.json(response);
