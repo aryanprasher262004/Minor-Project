@@ -1,34 +1,49 @@
 import { ChatRequest, ChatResponse } from "@/types/chat";
 import { getAnswer } from "@/knowledge/knowledge.service";
-import { addMessage , getSessionHistory } from "@/lib/memory.store";
+import { addMessage, getSessionHistory } from "@/lib/memory.store";
 
 export async function processChat(
   data: ChatRequest
 ): Promise<ChatResponse> {
 
-  // 🔴 TEMP MOCK data for testing
-  const mockIntent = "placement_query";
+  // 1. Get history BEFORE adding new message
+  const history = getSessionHistory(data.sessionId);
 
-  // store user message 
+  // 2. Get last user message (previous context)
+  const lastUserMessage = history
+    .filter(msg => msg.role === "user")
+    .slice(-1)[0]?.message;
+
+  // 3. Context-aware intent logic (TEMP without NLP)
+  let mockIntent = "default";
+
+  if (data.message.toLowerCase().includes("placement")) {
+    mockIntent = "placement_query";
+  } 
+  else if (
+    data.message.toLowerCase().includes("package") &&
+    lastUserMessage?.toLowerCase().includes("placement")
+  ) {
+    mockIntent = "placement_query";
+  }
+
+  // 4. Store current user message
   addMessage(data.sessionId, {
     role: "user",
     message: data.message,
   });
 
-  // get answer 
-  
-
+  // 5. Get answer
   const answer = getAnswer(mockIntent);
 
-  // store bot response
+  // 6. Store bot response
   addMessage(data.sessionId, {
     role: "bot",
     message: answer,
   });
 
-  // history for context of previous question 
-  const history = getSessionHistory(data.sessionId);
-  console.log("Chat History ", history)
+  // 7. Debug history
+  console.log("Chat History:", getSessionHistory(data.sessionId));
 
   return {
     reply: answer,
