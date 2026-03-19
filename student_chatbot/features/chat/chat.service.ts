@@ -1,6 +1,7 @@
 import { ChatRequest, ChatResponse } from "@/types/chat";
 import { getAnswer } from "@/knowledge/knowledge.service";
 import { addMessage, getSessionHistory } from "@/lib/memory.store";
+import { saveMessage } from "@/db/db.client";
 
 export async function processChat(
   data: ChatRequest
@@ -33,6 +34,13 @@ export async function processChat(
     message: data.message,
   });
 
+  saveMessage({
+  sessionId: data.sessionId,
+  role: "user",
+  message: data.message,
+  timestamp: Date.now(),
+});
+
   // 5. Get answer
   const answer = getAnswer(mockIntent);
 
@@ -41,6 +49,13 @@ export async function processChat(
     role: "bot",
     message: answer,
   });
+
+  saveMessage({
+  sessionId: data.sessionId,
+  role: "bot",
+  message: answer,
+  timestamp: Date.now(),
+});
 
   // 7. Debug history
   console.log("Chat History:", getSessionHistory(data.sessionId));
