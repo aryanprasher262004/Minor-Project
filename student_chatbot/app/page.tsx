@@ -1,57 +1,108 @@
-export default function Home() {
+"use client";
+
+import { useEffect, useState } from "react";
+import { sendMessage } from "@/features/chat/chat.api";
+
+export default function ChatPage() {
+  const [sessionId, setSessionId] = useState("");
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  // ✅ Session setup
+  useEffect(() => {
+    let storedSession = localStorage.getItem("sessionId");
+
+    if (!storedSession) {
+      storedSession = crypto.randomUUID();
+      localStorage.setItem("sessionId", storedSession);
+    }
+
+    setSessionId(storedSession);
+  }, []);
+
+  // ✅ Send message
+  const handleSend = async () => {
+    if (!input.trim()) return;
+
+    const userMessage = {
+      role: "user",
+      content: input,
+      timestamp: Date.now(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
+    setLoading(true);
+
+    const response = await sendMessage({
+      message: input,
+      sessionId,
+      userId: "user1",
+    });
+
+    if (response.success && response.data) {
+      setMessages((prev) => [
+        ...prev,
+        response.data!.message,
+      ]);
+    } else {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: response.error || "Something went wrong",
+          timestamp: Date.now(),
+        },
+      ]);
+    }
+
+    setLoading(false);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-black">
-   
-      <div
-        className="relative flex min-h-[845px] w-full max-w-8xl flex-col items-center justify-center rounded-xl bg-cover bg-c  bg-no-repeat shadow-2xl"
-        style={{ backgroundImage: "url('/bot.jpg')" }}
-      >
-        
-        <div className="absolute inset-0 bg-black/55 rounded-xl"></div>
+    <div className="p-4 max-w-xl mx-auto">
+      <h1 className="text-xl font-bold mb-4">Student Chatbot</h1>
 
-        <div className="relative z-10 flex flex-col items-center  gap-6 text-center px-6">
-          
-          <h1 className="text-5xl  font-bold text-white">
-             Student Help Chatbot
-          </h1>
-
-          <p className="max-w-md text-lg font-bold text-gray-200">
-            Your AI Assistant for Academics, Doubts, and Learning Support.
-          </p>
-          <p className="max-w-md pt-2 text-sm text-gray-200"> 
-            Created by Aryan Prasher, Anshika Yadav, Aditya Narayan, Itisha Panwar
-
-          </p>
-
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <button className="rounded-full bg-white px-6 py-3 font-semibold text-black transition hover:bg-gray-200">
-              Start Chatting
-            </button>
-
-            <button className="rounded-full border border-white px-6 py-3 font-semibold text-white transition hover:bg-white hover:text-black">
-              Learn More
-            </button>
-           
+      {/* Messages */}
+      <div className="border p-4 h-96 overflow-y-auto mb-4 rounded">
+        {messages.map((msg, index) => (
+          <div
+            key={index}
+            className={`mb-2 ${
+              msg.role === "user" ? "text-right" : "text-left"
+            }`}
+          >
+            <p
+              className={`inline-block px-3 py-2 rounded ${
+                msg.role === "user"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-800"
+              }`}
+            >
+              {msg.content}
+            </p>
           </div>
+        ))}
 
-          <div className="max-w-lg flex flex-col  font-bold text-gray-200  " >
-            TASK FOR THIS WEEK :
+        {loading && <p className="text-gray-500">Typing...</p>}
+      </div>
 
-            <p className="w-full text-gray-200 font-semibold text-xs"> * Make a branc of your name  </p>
-            <p className="w-full text-gray-200 font-semibold text-xs"> * Add some comment in the /apps/page.tsx  </p>
-            <p className="w-full text-gray-200 font-semibold text-xs"> * When the file is modified commit it to your made branch git commit -m "test"  </p>
-            <p className="w-full text-gray-200 font-semibold text-xs"> * Now push the commited file to your made branch  "git push origin branchname" </p>
-            <p className="w-full text-gray-200 font-semibold text-xs"> * If possible send me a PR request to merge the commmited changes to the main branch   </p>
-
-
-            
-          </div>
-
-        </div>
+      {/* Input */}
+      <div className="flex gap-2">
+        <input
+          className="border flex-1 p-2 rounded"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Ask something..."
+        />
+        <button
+          onClick={handleSend}
+          className="bg-black text-white px-4 rounded"
+        >
+          Send
+        </button>
       </div>
     </div>
   );
 }
-
-
-//test changes
