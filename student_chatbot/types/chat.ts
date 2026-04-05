@@ -22,9 +22,7 @@ export interface NLPResult {
     intent: string;
     entities: Record<string, any>;
     confidence: number;
-
-
-    
+    fulfillmentText?: string;
 }
 
 // Error response from the NLP engine
