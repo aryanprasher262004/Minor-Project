@@ -1,28 +1,40 @@
-// app/api/chat/route.ts
-
 import { NextResponse } from "next/server";
-import { ChatRequest, ChatResponse } from "@/types/chat";
 import { handleChat } from "@/features/chat/chat.controller";
+import { ChatRequest } from "@/types/chat";
+import { createSuccessResponse, createErrorResponse } from "@/lib/apiResponse";
 
-// Temporary mock response (we connect real logic next)
 export async function POST(req: Request) {
   try {
     const body: ChatRequest = await req.json();
 
     if (!body.message) {
       return NextResponse.json(
-        { error: true, message: "Message is required" },
+        createErrorResponse("Message is required"),
         { status: 400 }
       );
     }
-      // added from chat.controller.ts
-    const response = await handleChat(body);
 
+    const result = await handleChat(body);
+
+    const response = createSuccessResponse({
+      message: {
+        role: "assistant",
+        content: result.reply,
+        timestamp: Date.now(),
+      },
+      intent: result.intent,
+      confidence: result.confidence,
+    });
+
+
+    console.log("FINAL API RESPONSE:", JSON.stringify(response, null, 2));
     return NextResponse.json(response);
+
   } catch (error) {
     return NextResponse.json(
-      { error: true, message: "Server error" },
+      createErrorResponse("Server error"),
       { status: 500 }
     );
   }
 }
+//

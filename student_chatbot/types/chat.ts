@@ -31,3 +31,15 @@ export interface APIError {
     message: string;
     
 }
+
+export interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+  timestamp: number;
+}
+
+export interface APIResponse<T> {
+  success: boolean;
+  data: T | null;
+  error: string | null;
+}
