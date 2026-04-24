@@ -2,6 +2,23 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### Prerequisites
+
+This project now uses Dialogflow for processing chat messages instead of a static `knowledge_base.json`. Before running the project, you need to create an `.env.local` file in the root backend directory or the main project root (depending on your startup script) with your Dialogflow credentials:
+
+```bash
+DIALOGFLOW_PROJECT_ID="your_project_id"
+DIALOGFLOW_CLIENT_EMAIL="your_client_email"
+DIALOGFLOW_PRIVATE_KEY="your_private_key"
+```
+
+To migrate your initial training data to your Dialogflow agent, run:
+```bash
+node student_chatbot/migrate_to_dialogflow.mjs
+```
+
+### Running the App
+
 First, run the development server:
 
 ```bash

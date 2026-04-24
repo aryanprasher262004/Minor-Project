@@ -5,7 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
+dotenv.config({ path: path.join(__dirname, '.env.local') });
 
 console.log("Checking environment variables...");
 console.log("PROJECT_ID:", process.env.DIALOGFLOW_PROJECT_ID ? "Found" : "Missing");
