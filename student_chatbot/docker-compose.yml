@@ -1,0 +1,37 @@
+# docker-compose.yml
+# Usage: docker compose up --build
+
+services:
+  campusx:
+    # Build from our Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Container name
+    container_name: campusx-app
+
+    # Map host port 3000 → container port 3000
+    ports:
+      - "3000:3000"
+
+    # Inject environment variables from your .env.local
+    # These are NEVER baked into the image
+    env_file:
+      - .env.local
+
+    # Extra env overrides (runtime)
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+
+    # Auto-restart if container crashes
+    restart: unless-stopped
+
+    # Health check — hits your app every 30s
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
