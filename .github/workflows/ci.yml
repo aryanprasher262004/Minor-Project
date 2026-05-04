@@ -1,0 +1,74 @@
+name: CI Build and Test
+
+on:
+  push:
+    branches: [main, devops, devops-monitoring]
+  pull_request:
+    branches: [main]
+
+defaults:
+  run:
+    working-directory: student_chatbot  # ← tells ALL steps to run inside this folder
+
+jobs:
+  build:
+    name: 🔨 Install & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: student_chatbot/package-lock.json  # ← points to correct lock file
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create environment file
+        run: |
+          echo "DIALOGFLOW_PROJECT_ID=${{ secrets.DIALOGFLOW_PROJECT_ID }}" >> .env.local
+          echo "DIALOGFLOW_CLIENT_EMAIL=${{ secrets.DIALOGFLOW_CLIENT_EMAIL }}" >> .env.local
+          echo "DIALOGFLOW_PRIVATE_KEY=${{ secrets.DIALOGFLOW_PRIVATE_KEY }}" >> .env.local
+
+      - name: Build Next.js app
+        run: npm run build
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: nextjs-build
+          path: student_chatbot/.next/  # ← correct path for artifact
+          retention-days: 1
+
+  docker:
+    name: 🐳 Docker Build Test
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create environment file
+        working-directory: student_chatbot  # ← override for this step
+        run: |
+          echo "DIALOGFLOW_PROJECT_ID=${{ secrets.DIALOGFLOW_PROJECT_ID }}" >> .env.local
+          echo "DIALOGFLOW_CLIENT_EMAIL=${{ secrets.DIALOGFLOW_CLIENT_EMAIL }}" >> .env.local
+          echo "DIALOGFLOW_PRIVATE_KEY=${{ secrets.DIALOGFLOW_PRIVATE_KEY }}" >> .env.local
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: student_chatbot  # ← Dockerfile is inside student_chatbot
+          push: false
+          tags: campusx-app:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
