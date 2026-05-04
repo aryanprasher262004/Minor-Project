@@ -1,49 +1,47 @@
 {
-  "fees_query": "The semester fee is ₹50,000. You can pay via the student portal.",
+  "greeting_query": "Hello! I can help you with queries about fees, exams, admissions, hostel, placements, and more.",
+  "library_query": "The library is open from 8 AM to 7 PM on weekdays and provides access to physical and digital resources.",
+  "contact_query": "You can contact the administration via official email or helpline available on the student portal.",
+  "placement_query": "The university has a strong placement support system with top recruiters and internship opportunities starting from mid-program.",
+  "fees_query": "The tuition fee varies by program and semester. Students can check detailed fee structure on the student portal.",
+  "exam_query": "Exams are conducted at the end of each semester. The detailed schedule is released before exams.",
+  "admission_query": "Admissions are conducted online. Students must meet eligibility criteria and submit required documents.",
+  "hostel_query": "Hostel facilities include accommodation, food, and basic amenities. Fees vary based on room type.",
+  "scholarship_query": "Merit-based and need-based scholarships are available. Students can apply through the scholarship section on the portal.",
+  "attendance_query": "Students must maintain at least 75% attendance to be eligible for exams.",
+  "course_structure_query": "The program follows a semester system with core subjects initially and electives in later years.",
+  "internship_query": "Internships usually start from the 5th or 6th semester with support from the placement cell.",
+  "transport_query": "Transport services are available with multiple routes. Students can register at the start of the semester.",
+  "faculty_query": "Faculty members have strong academic and industry experience and are accessible for academic support.",
+  "results_query": "Results are published on the student portal. Students can log in to check their performance.",
+  "re_evaluation_query": "Students can apply for re-evaluation after results are declared through the official system.",
+  "drop_course_query": "Courses can be dropped within the initial weeks of the semester with approval.",
+  "campus_facility_query": "Campus facilities include labs, library, sports complex, gym, and student activity centers.",
+  "fallback": "I'm sorry, I didn't understand that. Please ask about fees, exams, admissions, or campus facilities.",
   "fees_deadline": "The last date to pay fees is 15th July for the current semester.",
   "fees_payment_methods": "Fees can be paid via UPI, debit/credit card, or net banking.",
-  "scholarship_query": "Scholarships are available based on merit and financial need. Check the scholarship portal.",
-  
-  "admission_query": "Admissions open in June. Please check the official website.",
   "admission_eligibility": "You need at least 60% in your previous qualification to be eligible.",
   "admission_documents": "You need mark sheets, ID proof, passport-size photos, and transfer certificate.",
   "admission_status": "You can check your admission status on the student portal.",
-  
   "exam_schedule": "Exams are conducted in December and May.",
   "exam_timetable": "The detailed exam timetable will be released one month before exams.",
   "exam_results": "Results are usually declared within 4 weeks after exams.",
   "revaluation_query": "You can apply for revaluation within 7 days of result declaration.",
-  
-  "hostel_query": "Hostel facilities are available with both AC and non-AC rooms.",
   "hostel_fees": "Hostel fees range from ₹70,000 to ₹1,20,000 per year depending on room type.",
   "hostel_rules": "Hostel timing is 10 PM. Strict discipline must be maintained.",
   "mess_query": "Mess facilities are available with veg and non-veg options.",
-  
-  "placement_query": "Our university offers great placements with average packages around ₹6-8 LPA.",
   "placement_companies": "Companies like TCS, Infosys, Wipro, and Amazon visit for placements.",
   "placement_salary": "The average package is ₹6 LPA and the highest goes up to ₹20 LPA.",
-  
   "course_query": "We offer B.Tech, M.Tech, MBA, and BBA programs.",
   "course_duration": "B.Tech is 4 years, MBA is 2 years.",
   "syllabus_query": "You can download the syllabus from the official website.",
-  
-  "faculty_query": "Our faculty includes experienced professors and industry experts.",
   "faculty_contact": "You can contact faculty via official email IDs provided on the website.",
-  
-  "library_query": "The library is open from 8 AM to 10 PM.",
   "library_books": "The library has over 50,000 books and digital resources.",
-  
-  "attendance_query": "Minimum 75% attendance is required to appear for exams.",
   "leave_query": "You must submit a leave application through the portal.",
-  
-  "transport_query": "Transport facilities are available across major city routes.",
   "bus_fees": "Bus fees depend on the distance from campus.",
-  
-  "events_query": "Cultural and technical events are आयोजित throughout the year.",
+  "events_query": "Cultural and technical events are organized throughout the year.",
   "fest_query": "The annual fest is conducted in March.",
-  
   "wifi_query": "Campus-wide WiFi is available for all students.",
   "id_card_query": "You can collect your ID card from the admin office.",
-  
   "default": "Sorry, I don’t understand your question yet."
 }
