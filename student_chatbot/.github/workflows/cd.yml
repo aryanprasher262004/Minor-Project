@@ -2,7 +2,7 @@
 # Runs only when code is merged to main
 # Jobs: build → push image to GHCR → deploy to Render
 
-name: CD — Deploy to Production
+name: CD Deploy to Production
 
 on:
   push:
