@@ -25,7 +25,7 @@ export default function Chatbot() {
   const initialMessage: Message = { 
     id: "init", 
     role: "bot", 
-    content: "Hi there! 👋 I'm the SEPU virtual assistant. How can I help you today?" 
+    content: "Hi there! 👋 I'm the CampusX virtual assistant. How can I help you today?" 
   };
 
   useEffect(() => {
@@ -64,7 +64,8 @@ export default function Chatbot() {
 
     try {
       const response = await sendMessage({ message: userMsg, sessionId, userId: sessionId });
-const botReply = response?.data?.message?.content || response?.error || "I'm not sure how to answer that right now.";      setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "bot", content: botReply }]);
+      const botReply = response?.data?.message?.content || response?.error || "I'm not sure how to answer that right now.";
+      setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "bot", content: botReply }]);
     } catch (error) {
       setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "bot", content: "Connection error. Please try again." }]);
     } finally {
@@ -87,34 +88,34 @@ const botReply = response?.data?.message?.content || response?.error || "I'm not
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {isOpen && (
-        <div className="w-[380px] sm:w-[450px] h-[600px] sm:h-[650px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden mb-4 border border-slate-200 transition-all duration-300">
+        <div className="w-[380px] sm:w-[450px] h-[600px] sm:h-[650px] bg-light-surface dark:bg-dark-surface rounded-2xl shadow-2xl flex flex-col overflow-hidden mb-4 border border-light-border dark:border-dark-border transition-colors duration-200">
           
           {/* Header */}
-          <div className="bg-[#2e1065] text-white p-4 flex justify-between items-center shadow-md z-10">
+          <div className="bg-light-primary dark:bg-dark-primary text-white p-4 flex justify-between items-center shadow-md z-10 transition-colors">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-bold text-[#2e1065] text-xs">
-                SEPU
+              <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-bold text-light-primary dark:text-dark-primary text-xs">
+                CX
               </div>
-              <h3 className="font-semibold text-lg">SEPU Assistant</h3>
+              <h3 className="font-semibold text-lg">CampusX Assistant</h3>
             </div>
             <div className="flex items-center gap-3">
-              <button onClick={handleClearChat} title="Clear Chat" className="text-white/70 hover:text-white text-sm flex items-center gap-1">
+              <button onClick={handleClearChat} title="Clear Chat" className="text-white/80 hover:text-white text-sm flex items-center gap-1 transition-colors">
                 🗑️ <span className="text-xs">Clear</span>
               </button>
-              <button onClick={() => setIsOpen(false)} className="text-white/70 hover:text-white text-xl ml-2">
+              <button onClick={() => setIsOpen(false)} className="text-white/80 hover:text-white text-xl ml-2 transition-colors">
                 ✕
               </button>
             </div>
           </div>
 
           {/* Messages List */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-light-bg dark:bg-dark-bg transition-colors">
             {messages.map((msg) => (
               <div key={msg.id} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-[15px] leading-relaxed shadow-sm ${
+                <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-[15px] leading-relaxed shadow-sm transition-colors ${
                   msg.role === "user" 
-                  ? "bg-blue-600 text-white rounded-br-sm" 
-                  : "bg-white text-slate-800 border border-slate-200 rounded-bl-sm"
+                  ? "bg-light-primary dark:bg-dark-primary text-white rounded-br-sm" 
+                  : "bg-light-surface2 dark:bg-dark-surface text-light-text-primary dark:text-dark-text-primary border border-light-border dark:border-dark-border rounded-bl-sm"
                 }`}>
                   {msg.content}
                 </div>
@@ -122,10 +123,10 @@ const botReply = response?.data?.message?.content || response?.error || "I'm not
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-white border border-slate-200 text-slate-500 rounded-2xl rounded-bl-sm px-4 py-3 text-sm shadow-sm flex items-center gap-2">
-                  <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></span>
-                  <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-100"></span>
-                  <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-200"></span>
+                <div className="bg-light-surface2 dark:bg-dark-surface text-light-text-muted dark:text-dark-text-muted border border-light-border dark:border-dark-border rounded-2xl rounded-bl-sm px-4 py-3 text-sm shadow-sm flex items-center gap-2">
+                  <span className="w-2 h-2 bg-light-text-muted dark:bg-dark-text-muted rounded-full animate-bounce"></span>
+                  <span className="w-2 h-2 bg-light-text-muted dark:bg-dark-text-muted rounded-full animate-bounce delay-100"></span>
+                  <span className="w-2 h-2 bg-light-text-muted dark:bg-dark-text-muted rounded-full animate-bounce delay-200"></span>
                 </div>
               </div>
             )}
@@ -133,13 +134,13 @@ const botReply = response?.data?.message?.content || response?.error || "I'm not
           </div>
 
           {/* Quick Replies (FAQs) */}
-          <div className="bg-slate-50 px-3 py-2 border-t border-slate-200 flex overflow-x-auto gap-2 scrollbar-hide">
+          <div className="bg-light-bg dark:bg-dark-bg px-3 py-2 border-t border-light-border dark:border-dark-border flex overflow-x-auto gap-2 scrollbar-hide transition-colors">
             {FAQs.map((faq, idx) => (
               <button
                 key={idx}
                 onClick={() => handleSend(faq)}
                 disabled={isLoading}
-                className="whitespace-nowrap bg-white border border-blue-200 text-blue-700 hover:bg-blue-50 px-3 py-1.5 rounded-full text-xs font-medium transition-colors disabled:opacity-50 shadow-sm"
+                className="whitespace-nowrap bg-light-surface dark:bg-dark-surface border border-light-primary dark:border-dark-primary text-light-primary dark:text-dark-primary hover:bg-light-surface2 dark:hover:bg-dark-surface2 px-3 py-1.5 rounded-full text-xs font-medium transition-colors disabled:opacity-50 shadow-sm"
               >
                 {faq}
               </button>
@@ -147,7 +148,7 @@ const botReply = response?.data?.message?.content || response?.error || "I'm not
           </div>
 
           {/* Input Box */}
-          <div className="p-3 bg-white border-t border-slate-200 flex gap-2 items-center">
+          <div className="p-3 bg-light-surface dark:bg-dark-surface border-t border-light-border dark:border-dark-border flex gap-2 items-center transition-colors">
             <input
               ref={inputRef}
               type="text"
@@ -155,14 +156,14 @@ const botReply = response?.data?.message?.content || response?.error || "I'm not
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
               placeholder="Write a message..."
-              className="flex-1 bg-slate-100 border border-slate-200 focus:border-blue-500 focus:bg-white rounded-xl px-4 py-3 text-[15px] outline-none transition-all text-slate-800"
+              className="flex-1 bg-light-input-bg dark:bg-dark-input-bg border border-light-border dark:border-dark-border focus:border-light-primary dark:focus:border-dark-primary rounded-xl px-4 py-3 text-[15px] outline-none transition-all text-light-text-primary dark:text-dark-text-primary"
               disabled={isLoading}
               autoFocus
             />
             <button
               onClick={() => handleSend()}
               disabled={!input.trim() || isLoading}
-              className="bg-blue-600 text-white rounded-xl w-12 h-12 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors shadow-md"
+              className="bg-light-primary dark:bg-dark-primary text-white rounded-xl w-12 h-12 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-light-primary-hover dark:hover:bg-dark-primary-hover transition-colors shadow-md"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 ml-1">
                 <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
@@ -178,9 +179,9 @@ const botReply = response?.data?.message?.content || response?.error || "I'm not
           setIsOpen(!isOpen);
           if (!isOpen) setTimeout(() => inputRef.current?.focus(), 100);
         }}
-        className="bg-[#2e1065] hover:bg-[#4c1d95] text-white px-6 py-4 rounded-full shadow-2xl font-semibold flex items-center gap-3 transition-transform transform hover:scale-105"
+        className="bg-light-primary dark:bg-dark-primary hover:bg-light-primary-hover dark:hover:bg-dark-primary-hover text-white px-6 py-4 rounded-full shadow-2xl font-semibold flex items-center gap-3 transition-transform transform hover:scale-105"
       >
-        {isOpen ? "✕ Close" : "💬 Ask SEPU"}
+        {isOpen ? "✕ Close" : "💬 Ask CampusX"}
       </button>
     </div>
   );

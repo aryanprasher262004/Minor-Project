@@ -1,8 +1,7 @@
 import { ChatRequest, ChatResponse } from "@/types/chat";
 import { addMessage, getSessionHistory } from "@/lib/memory.store";
 import { saveMessage } from "@/db/db.client";
-
-import { resolveIntent } from "./handlers/intent.handler";
+import { callDialogflow } from "@/nlp/dialogflow.client";
 import { buildResponse } from "./handlers/response.builder";
 
 export async function processChat(
@@ -15,8 +14,30 @@ export async function processChat(
     .filter(msg => msg.role === "user")
     .slice(-1)[0]?.message;
 
-  // 🔥 Intent logic separated
-  const intent = resolveIntent(data.message, lastUserMessage);
+  // Integrate Dialogflow
+  let intentName = "default";
+  let answer = "";
+  let confidence = 1.0;
+
+  try {
+    const dialogflowResult = await callDialogflow(data.message, data.sessionId);
+    intentName = dialogflowResult?.intent?.displayName || "default";
+    confidence = dialogflowResult?.intentDetectionConfidence || 1.0;
+    
+    if (dialogflowResult?.fulfillmentText) {
+      answer = dialogflowResult.fulfillmentText;
+    }
+  } catch (error) {
+    console.error("Dialogflow Error:", error);
+    // Fallback intent logic
+    intentName = "default";
+  }
+
+  // Fallback to local knowledge base if Dialogflow didn't provide a specific answer 
+  // or if it's just a default fallback response.
+  if (!answer || intentName === "Default Fallback Intent") {
+    answer = buildResponse(intentName);
+  }
 
   // Store user message
   addMessage(data.sessionId, {
@@ -30,9 +51,6 @@ export async function processChat(
     message: data.message,
     timestamp: Date.now(),
   });
-
-  // 🔥 Response logic separated
-  const answer = buildResponse(intent);
 
   // Store bot response
   addMessage(data.sessionId, {
@@ -49,9 +67,7 @@ export async function processChat(
 
   return {
     reply: answer,
-    intent,
-    confidence: 1.0,
+    intent: intentName,
+    confidence: confidence,
   };
 }
-// 
-//
