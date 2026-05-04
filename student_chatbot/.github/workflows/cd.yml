@@ -32,6 +32,7 @@ jobs:
           echo "DIALOGFLOW_PROJECT_ID=${{ secrets.DIALOGFLOW_PROJECT_ID }}" >> .env.local
           echo "DIALOGFLOW_CLIENT_EMAIL=${{ secrets.DIALOGFLOW_CLIENT_EMAIL }}" >> .env.local
           echo "DIALOGFLOW_PRIVATE_KEY=${{ secrets.DIALOGFLOW_PRIVATE_KEY }}" >> .env.local
+          echo "BETTERSTACK_SOURCE_TOKEN=${{ secrets.BETTERSTACK_SOURCE_TOKEN }}" >> .env.local
 
       # Login to GitHub Container Registry
       - name: Log in to GHCR
