@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main]
 
+defaults:
+  run:
+    working-directory: student_chatbot  # ← tells ALL steps to run inside this folder
+
 jobs:
   build:
     name: 🔨 Install & Build
@@ -20,6 +24,7 @@ jobs:
         with:
           node-version: "20"
           cache: "npm"
+          cache-dependency-path: student_chatbot/package-lock.json  # ← points to correct lock file
 
       - name: Install dependencies
         run: npm ci
@@ -37,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: nextjs-build
-          path: .next/
+          path: student_chatbot/.next/  # ← correct path for artifact
           retention-days: 1
 
   docker:
@@ -50,6 +55,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create environment file
+        working-directory: student_chatbot  # ← override for this step
         run: |
           echo "DIALOGFLOW_PROJECT_ID=${{ secrets.DIALOGFLOW_PROJECT_ID }}" >> .env.local
           echo "DIALOGFLOW_CLIENT_EMAIL=${{ secrets.DIALOGFLOW_CLIENT_EMAIL }}" >> .env.local
@@ -61,7 +67,7 @@ jobs:
       - name: Build Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: student_chatbot  # ← Dockerfile is inside student_chatbot
           push: false
           tags: campusx-app:test
           cache-from: type=gha
