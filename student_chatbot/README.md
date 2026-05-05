@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Student_chatbot 🎓
+> University student support chatbot powered by Dialogflow + Next.js
 
-## Getting Started
+## 📊 Project Status
 
-First, run the development server:
+![CI](https://github.com/aryanprasher262004/Minor-Project/actions/workflows/ci.yml/badge.svg)
+![CD](https://github.com/aryanprasher262004/Minor-Project/actions/workflows/cd.yml/badge.svg)
 
+## 🚀 Live Demo
+🌐 [https://minor-project-m87r.onrender.com](https://minor-project-m87r.onrender.com)
+
+## 🛠️ Tech Stack
+| Layer | Technology |
+|---|---|
+| Frontend | Next.js 15, Tailwind CSS |
+| Backend | Next.js API Routes |
+| NLP | Dialogflow |
+| Container | Docker (multi-stage) |
+| CI/CD | GitHub Actions |
+| Hosting | Render.com |
+| Monitoring | Betterstack |
+
+## 👥 Team
+| Name | GitHub | Role |
+|---|---|---|
+| Teammate 1 | [@aryanprasher262004](https://github.com/USERNAME_1) | Docker + CI Pipeline |
+| Teammate 2 | [@codewitching](https://github.com/USERNAME_2) | Deployment + Monitoring |
+| Teammate 3 | [@USERNAME_3](https://github.com/USERNAME_3) | TBD |
+| Teammate 4 | [@USERNAME_4](https://github.com/USERNAME_4) | TBD |
+
+## 📁 Project Structure
+Minor-Project/
+├── .github/
+│   └── workflows/
+│       ├── ci.yml        # Runs on every push
+│       └── cd.yml        # Deploys on merge to main
+└── student_chatbot/      # Next.js app
+├── Dockerfile
+├── app/
+├── components/
+├── features/chat/
+├── nlp/
+└── lib/
+
+## ⚙️ Local Setup
 ```bash
+git clone https://github.com/aryanprasher262004/Minor-Project.git
+cd Minor-Project/student_chatbot
+npm install
+cp .env.local.example .env.local  # fill in your keys
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔑 Environment Variables
+| Variable | Description |
+|---|---|
+| `DIALOGFLOW_PROJECT_ID` | Dialogflow project ID |
+| `DIALOGFLOW_CLIENT_EMAIL` | Service account email |
+| `DIALOGFLOW_PRIVATE_KEY` | Service account private key |
+| `BETTERSTACK_SOURCE_TOKEN` | Betterstack log source token |
