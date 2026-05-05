@@ -4,8 +4,8 @@
 ![CD Deploy to Production](https://github.com/aryanprasher262004/Minor-Project/actions/workflows/cd.yml/badge.svg)
 ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js&logoColor=white)
-![Live](https://img.shields.io/badge/Live-Render.com-46E3B7?logo=render&logoColor=white)
-
+![Live](https://img.shields.io/badge/Live-minor--project--m87r.onrender.com-46E3B7?logo=render&logoColor=white)
+---
 > An AI-powered student support chatbot integrated into a university website.
 > Built with Next.js 15, Dialogflow NLP, Docker, and GitHub Actions CI/CD.
 
@@ -13,8 +13,7 @@
 
 ## 🌍 Live Demo
 👉 **[CampusX Live Demo](https://minor-project-m87r.onrender.com)**
-![Live](https://img.shields.io/badge/Live-minor--project--m87r.onrender.com-46E3B7?logo=render&logoColor=white)
----
+
 
 ## 👥 Team
 | Role | Name |
