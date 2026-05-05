@@ -50,7 +50,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: student_chatbot        # ← Dockerfile is here
-          dockerfile: student_chatbot/Dockerfile  # ← explicit path
+          file: student_chatbot/Dockerfile  # ← explicit path
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
